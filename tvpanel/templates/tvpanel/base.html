@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Refresh" content="3" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href=" {% static 'tvpanel/css/style.css ' %} " rel="stylesheet"/>
+    <title>{% block title %} Title {% endblock %}</title>
+</head>
+<body>
+    <main>
+        {% block topbar %}
+        
+        <div style="display: flex; justify-content: space-between; font-size: 40px; align-items: center; padding-right: 2vw; padding-left: 2vw;">
+        
+            <div style="display: flex;"><img src="{% static 'tvpanel/images/logo.png ' %}" style="height:4rem; width: 24rem;padding: 1rem 1rem;"><p style="font-size: 20px">v 0.2.1</p></div>
+        <!--<div>{{rest}}</div>-->
+            <div>
+                <figure style="width: 200px; height: 30px; display: flex; flex-direction: row;">
+                <img src="http://openweathermap.org/img/w/{{ icon }}.png" alt="Image" style="width: 50px; height: 50px; padding-right: 20px;">
+                {{ temperature }}  °C
+                </figure>
+                
+            </div>
+            <div>{% now "l H:i" %}</div>
+        </div>
+        {% endblock %}
+
+        {% block body %}
+            
+        {% endblock %}
+
+        {% block bottom %}
+        
+        <div style="display: flex; justify-content: space-between; font-size: 14px; align-items: center; padding-right: 10px;">
+        
+            <div></div>
+        <!--<div>{{rest}}</div>-->
+            <div>WorkFlow system</div>
+        </div>
+        {% endblock %}
+    </main>
+</body>
+</html>

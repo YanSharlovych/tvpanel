@@ -1,0 +1,59 @@
+{% extends "tvpanel/base.html" %}
+{% block title %}TV Panel{% endblock %}
+
+{% block body %}
+    {% if checkrest == True %}
+        <div style="font-size: 180px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        vertical-align: middle;
+        height: 87vh;
+        justify-content: center;
+        align-items: center;"><div>PRZERWA</div><div>{{timer}}</div></div>
+    {% else %}
+        <table style="padding: 0px 30px">
+            <tr>
+                <th>ID</th>
+                <th>Status</th>
+                <th>Iłośc</th>
+                <th>Klient</th>
+                <th>Termin</th>
+            </tr>
+        
+        {% for order in orders %}
+        
+        {% if order.deadline_days <= 3 and order.order_complete != True %}
+            <tr class="trred">
+            {% elif order.deadline_days <= 5 and order.order_complete != True %}
+            <tr class="trorange">
+            {% elif order.order_complete != True %}
+            <tr class="trgreen">
+            {% else %}
+            <tr>
+            {% endif %}
+            <td>{{ order.order_id }}</td>
+            {% if order.order_complete == True %}
+            <td>Gotowe</td>
+            {% else %}
+            <td>Produkcja</td>
+            {% endif %}
+            <td>{{ order.order_count }}</td>
+            <td>{{ order.order_customer }}</td>
+            {% if order.deadline_days == 0 %} 
+            <td>Dzisiaj</td>
+            {% elif order.deadline_days == 1 %}
+            <td>{{ order.deadline_days }} dzień</td>
+            {% elif order.deadline_days < 0 %}
+            <td>Przekroczone</td>
+            {% else %}
+            <td>{{ order.deadline_days }} dni</td>
+            {% endif %}
+        
+        </tr>
+        {% endfor %}
+        
+        </table>
+    {% endif %}
+
+{% endblock %}
